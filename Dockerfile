@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y \
     /etc/nginx/sites-available/default && \
     /etc/init.d/mysql start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS docker /*\!40100 DEFAULT CHARACTER SET utf8 */;" && \
-    mysql -e "CREATE USER 'docker'@'localhost' IDENTIFIED BY 'password';" && \
+    mysql -e "CREATE USER 'docker'@'localhost' IDENTIFIED BY 'docker';" && \
     mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'docker'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;" && \
     sed -ie 's/listen = \/run\/php\/php7\.0-fpm\.sock/listen = \/var\/run\/php7\.0-fpm\.sock/g' /etc/php/7.0/fpm/pool.d/www.conf && \
