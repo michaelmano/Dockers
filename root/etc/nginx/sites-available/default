@@ -1,0 +1,46 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+    root /var/www/public;
+    
+    error_log   /var/www/storage/logs/nginx-error.log;
+    access_log  /var/www/storage/logs/nginx-access.log;
+
+    autoindex on;
+    index index.php;
+    location / {
+        try_files $uri $uri/ /index.php;
+        location = /index.php {
+            fastcgi_param SCRIPT_FILENAME /var/www$fastcgi_script_name;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+            try_files $fastcgi_script_name =404;
+            set $path_info $fastcgi_path_info;
+            fastcgi_param PATH_INFO $path_info;
+            fastcgi_index index.php;
+            include fastcgi.conf;
+        }
+    }
+    
+    location ~ \.php$ {
+        return 444;
+    }
+
+    location ~ /\. {
+	    deny all;
+    }
+    
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
+    }
+
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+
+}
