@@ -10,7 +10,7 @@ Jessaveller
 
 First you must have composer installed on your current machine and globally require laravel/installer like so: `composer global require "laravel/installer"` and now you can create a new project by typing the following `composer create-project --prefer-dist laravel/laravel /path/you/like` replace /path/you/like obviously. Now you can get Jessaveller up and running with the command below.
 ```
-docker run --name jessaveller -itd -v /path/you/like:/var/www -p 80:80 -P michaelmano/jessaveller
+docker run --name jessaveller -itd -v /path/you/like:/var/www -p 80:80 -P michaelmano/laravel
 ```
 It may take a while for the first time as you wont have the image locally so it will download it from dockerhub. but you can spin up projects fast after as it will be saved.
 
