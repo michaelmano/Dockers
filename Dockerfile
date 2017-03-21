@@ -44,7 +44,12 @@ RUN apt-get update && apt-get install -y \
     mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'docker'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;" && \
     sed -ie 's/listen = \/run\/php\/php7\.0-fpm\.sock/listen = \/var\/run\/php7\.0-fpm\.sock/g' /etc/php/7.0/fpm/pool.d/www.conf && \
-    sed -ie 's/;cgi\.fix_pathinfo=1/cgi\.fix_pathinfo=0/g' /etc/php/7.0/fpm/php.ini
+    sed -ie 's/;cgi\.fix_pathinfo=1/cgi\.fix_pathinfo=0/g' /etc/php/7.0/fpm/php.ini && \
+    curl -O https://getcomposer.org/installer && \
+    php installer && \
+    composer.phar global require "laravel/installer" && \
+    composer.phar create-project --prefer-dist laravel/laravel laravel
+
 
 # Configuration files.
 COPY root /
