@@ -18,3 +18,4 @@ Once you have finished developing your project and for some reason you need to e
 ```
 docker exec -it name-of-project /bin/bash -c "mysqldump docker > docker_wordpress.sql"
 ```
+And now you will have a docker_wordpress.sql file located inside of your project folder that you provided in step 1.
