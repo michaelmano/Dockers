@@ -47,14 +47,14 @@ RUN apt-get update && apt-get install -y \
     sed -ie 's/;cgi\.fix_pathinfo=1/cgi\.fix_pathinfo=0/g' /etc/php/7.0/fpm/php.ini && \
     curl -O https://getcomposer.org/installer && \
     php installer && \
-    composer.phar global require "laravel/installer" && \
-    composer.phar create-project --prefer-dist laravel/laravel laravel
+    php composer.phar global require "laravel/installer" && \
+    php composer.phar create-project --prefer-dist laravel/laravel laravel
 
 
 # Configuration files.
 COPY root /
 RUN chmod +x entrypoint.sh
-VOLUME /var/www/
+VOLUME /var/www
 WORKDIR /var/www
 EXPOSE 80
 ENTRYPOINT ["/entrypoint.sh"]
