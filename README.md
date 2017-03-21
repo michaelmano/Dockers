@@ -3,23 +3,38 @@ Dockers: Laravel
 ### Debian Jessie with php7.0, MySQL 5.7 and Nginx built for Laravel.
 
 ## Getting Started
+You do not require any files except Docker installed.
 
-If you already have a project set up and want to link the docker to it this can be done. However if there is no project folder or it does not have a public folder the docker will create a new laravel project in the folder path you provide. 
+If you are starting a new project from scratch this container will create a Laravel project in the path you provide it, If you have an existing project and you provide it the path it will not install Laravel but instead use your project. It will also update the .env file with the dockers MySQL details.
 
-```
-docker run --name name-of-project -itd -v /path/you/like:/var/www -p 80:80 -P michaelmano/laravel
-```
-The command will spin up a new docker container named name-of-project running on port 80, You can change this if you have multiple projects by altering the -p 80:80 to -p 8888:80 (8888 to any port you prefer).
+If you destory your docker when you are finished the files will be left on your computer so you will not lose anything (except the database however if you are using migrations and seeders you should be fine - if you require the database I suggest you do a mysql dump before hand with the dockers exec command).
 
-When you need to run an artisan command do so like this:
+## Commands
 
+**Creating a Container**
+The command below will spin up a new docker container named my-project running on port 80, You can change this if you have multiple projects by altering the -p 80:80 to -p 8888:80 (8888 to any port you prefer).
 ```
-docker exec -it name-of-project /bin/bash -c "php artisan migrate"
+docker run --name my-project -itd -v /path/of/project:/var/www -p 80:80 -P michaelmano/laravel
 ```
-but i generally just keep a console open in the containers bash.. 
+**Running Commands on the Container**
 ```
-docker exec -it name-of-project /bin/bash
+docker exec -it my-project /bin/bash -c "php artisan migrate"
 ```
+or open a console in the container
+```
+docker exec -it my-project /bin/bash
+```
+**Destroying a Container**
+This will leave the project folder it was using so all files will be safe.
+```
+docker rm my-project -f
+```
+**Checking the Container Status**
+```
+docker ps -a
+```
+This will show the containers you have running and on which port however you can use dockers Kitematic which is a visual interface for this also.
+
 ## MySQL Details
 
 - dbname: docker
