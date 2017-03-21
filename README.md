@@ -5,7 +5,8 @@ Dockers: Laravel
 ## Getting Started
 You do not require any files except Docker installed.
 
-If you are starting a new project from scratch this container will create a Laravel project in the path you provide it, If you have an existing project and you provide it the path it will not install Laravel but instead use your project. It will also update the .env file with the dockers MySQL details.
+If you are starting a new project from scratch this container will create a Laravel project in the path you provide it and update the .env to the dockers database details.
+If you have an existing project and you provide it the path it will not install Laravel but instead use your project.
 
 If you destory your docker when you are finished the files will be left on your computer so you will not lose anything (except the database however if you are using migrations and seeders you should be fine - if you require the database I suggest you do a mysql dump before hand with the dockers exec command).
 
