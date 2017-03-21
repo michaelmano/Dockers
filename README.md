@@ -8,7 +8,9 @@ Dockers: Laravel
 - Docker
 - Composer
 
-First you must have composer installed on your current machine and globally require laravel/installer like so: ```
+First you must have composer installed on your current machine and globally require laravel/installer like so: 
+
+```
 composer global require "laravel/installer"
 ```
 and now you can create a new project by typing the following:
