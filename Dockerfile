@@ -49,7 +49,7 @@ RUN apt-get update && apt-get install -y \
  && php installer && \
     php composer.phar global require "laravel/installer" && \
     php composer.phar create-project --prefer-dist laravel/laravel laravel \
- && echo 'alias composer="/composer.phar"' >> .bashrc \
+ && echo 'alias composer="/composer.phar"' >> ~/.bashrc \
  && . ~/.bashrc
 
 
