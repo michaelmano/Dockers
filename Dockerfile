@@ -48,7 +48,9 @@ RUN apt-get update && apt-get install -y \
  && curl -O https://getcomposer.org/installer \
  && php installer && \
     php composer.phar global require "laravel/installer" && \
-    php composer.phar create-project --prefer-dist laravel/laravel laravel
+    php composer.phar create-project --prefer-dist laravel/laravel laravel \
+ && echo 'alias composer="../../composer.phar"' >> .bashrc \
+ && . ~/.bashrc
 
 
 # Configuration files.
