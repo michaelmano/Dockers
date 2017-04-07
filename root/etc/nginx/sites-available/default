@@ -11,7 +11,7 @@ server {
     autoindex on;
     index index.php;
     location / {
-        try_files $uri $uri/ /index.php;
+        try_files $uri $uri/ /index.php$is_args$args;
         location = /index.php {
             fastcgi_param SCRIPT_FILENAME /var/www$fastcgi_script_name;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
