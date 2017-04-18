@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     php7.0-opcache \
     php7.0-json \
     php7.0-readline \
+    php7.0-sqlite3 \
     libphp-phpmailer \
     zip \
     git \
@@ -49,7 +50,8 @@ RUN apt-get update && apt-get install -y \
  && php installer && \
     php composer.phar global require "laravel/installer" && \
     php composer.phar create-project --prefer-dist laravel/laravel laravel \
- && echo 'alias composer="/composer.phar"' >> ~/.bashrc \
+ && echo 'alias composer="/composer.phar"' >> ~/.bashrc \ &&
+    echo 'alias phpunit="/var/www/vendor/bin/phpunit"' >> ~/.bashrc \
  && . ~/.bashrc
 
 
