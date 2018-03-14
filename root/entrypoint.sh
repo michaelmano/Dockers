@@ -25,11 +25,12 @@ moveApplication()
 
 checkStatus()
 {
-  echo "Checking if the application exists."
+  projectDir=(/var/www/*)
 
+  echo "Checking if the application exists."
   if [[ -z "${APPLICATION_EXISTS}" ]];
   then
-    if [ -d "/var/www/public" ];
+    if [ ${#projectDir[@]} -gt 0 ];
     then
       exportVariable
     else
