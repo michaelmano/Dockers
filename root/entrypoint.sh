@@ -3,14 +3,14 @@
 startServices() {
   /etc/init.d/php7.2-fpm start \
   && /etc/init.d/nginx start \
-  && /etc/init.d/mysql start \
+  && /etc/init.d/mysql start
 
   # The sleep method will stop docker from
   # exiting the shell immediately.
   #
   # https://stackoverflow.com/questions/28212380/why-docker-container-exits-immediately
 
-  while true; do sleep 1000; done
+  while true; do sleep 10000; done
 }
 
 moveApplication()
@@ -19,9 +19,8 @@ moveApplication()
   && sed -ie 's/DB_DATABASE=homestead/DB_DATABASE=docker/g' /var/www/.env \
   && sed -ie 's/DB_USERNAME=homestead/DB_USERNAME=docker/g' /var/www/.env \
   && sed -ie 's/DB_PASSWORD=secret/DB_PASSWORD=docker/g' /var/www/.env \
-  && php /composer.phar update \
   && cd /var/www/ \
-  && npm install \
+  && php /composer.phar du \
   && startServices
 }
 
