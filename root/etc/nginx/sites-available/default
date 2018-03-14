@@ -1,54 +1,11 @@
 server {
-
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
-    root /var/www;
-    server_name _;
-
-    error_log   /var/www/nginx-error.log;
-    access_log  /var/www/nginx-access.log;
-
-    autoindex on;
-    index index.php index.html index.htm;
-
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    error_page 404 /404.html;
-    error_page 500 502 503 504 /50x.html;
-
-    if (-d $request_filename) {
-        rewrite [^/]$ $scheme://$http_host$uri/ permanent;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php7.2-fpm.sock;
-        try_files $fastcgi_script_name =404;
-        set $path_info $fastcgi_path_info;
-        fastcgi_param PATH_INFO $path_info;
-        fastcgi_index index.php;
-        include fastcgi.conf;
-    }
-    
-    location ~ /\. {
-	    deny all;
-    }
-    
-    location = /favicon.ico {
-        log_not_found off;
-        access_log off;
-    }
-
-    location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-    }
-
-    location ~* /(?:uploads|files)/.*\.php$ {
-	    deny all;
-    }
-
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www;
+	index index.html index.htm;
+	server_name _;
+	location / {
+		try_files $uri $uri/ =404;
+	}
 }
+
