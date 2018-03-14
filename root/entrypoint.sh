@@ -1,16 +1,14 @@
 #!/bin/bash
 
+# The sleep method will stop docker from
+# exiting the shell immediately.
+#
+# https://stackoverflow.com/questions/28212380/why-docker-container-exits-immediately
 startServices() {
   /etc/init.d/php7.2-fpm start \
   && /etc/init.d/nginx start \
-  && /etc/init.d/mysql start
-
-  # The sleep method will stop docker from
-  # exiting the shell immediately.
-  #
-  # https://stackoverflow.com/questions/28212380/why-docker-container-exits-immediately
-
-  while true; do sleep 10000; done
+  && /etc/init.d/mysql start \
+  && while true; do sleep 10000; done
 }
 
 moveApplication()
@@ -35,8 +33,7 @@ checkStatus()
       exportVariable
     else
       echo "Application does not exist, Moving to the /var/www folder now." \
-      && moveApplication \
-      && exportVariable
+      && moveApplication & exportVariable
     fi
   else
     echo "Application exists, Starting Services."
