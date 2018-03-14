@@ -1,15 +1,22 @@
-# Dockers: Laravel
+# Dockers: Debian Jessie
 
-Debian Jessie with php7.2, MySQL 5.7 and Nginx built for Laravel.
+Debian Jessie with php7.2, MySQL 5.7 and Nginx
 
 ## Getting Started
 
 You do not require any files except Docker installed.
 
-If you are starting a new project from scratch this container will create a Laravel project in the path you provide it and update the .env to the dockers database details.
-If you have an existing project and you provide it the path it will not install Laravel but instead use your project.
+If you have an existing project and you provide it the path it will look in that directory for a `public` folder.
 
-If you destory your docker when you are finished the files will be left on your computer so you will not lose anything (except the database however if you are using migrations and seeders you should be fine - if you require the database I suggest you do a mysql dump before hand with the dockers exec command).
+* Your database will be removed if you destroy the container *
+
+If you destory your docker when you are finished the files will be left on your computer, I suggest you do a mysql dump before hand with the dockers exec command.
+
+The following will export the database into the project path you supplied.
+
+```bash
+docker exec -it my-project /bin/bash -c "mysqldump -udocker -pdocker docker > /var/www/database_backup.sql"
+```
 
 ## Commands
 
