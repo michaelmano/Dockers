@@ -1,8 +1,9 @@
-Dockers: Laravel
-===========
-### Debian Jessie with php7.0, MySQL 5.7 and Nginx built for Laravel.
+# Dockers: Laravel
+
+Debian Jessie with php7.2, MySQL 5.7 and Nginx built for Laravel.
 
 ## Getting Started
+
 You do not require any files except Docker installed.
 
 If you are starting a new project from scratch this container will create a Laravel project in the path you provide it and update the .env to the dockers database details.
@@ -12,36 +13,48 @@ If you destory your docker when you are finished the files will be left on your 
 
 ## Commands
 
-**Creating a Container**
+### Creating a Container
+
 The command below will spin up a new docker container named my-project running on port 80, You can change this if you have multiple projects by altering the -p 80:80 to -p 8888:80 (8888 to any port you prefer).
-```
+
+```bash
 docker run --name my-project -itd -v /path/of/project:/var/www -p 80:80 -P michaelmano/laravel
 ```
-**Running Commands on the Container**
-```
+
+### Running Commands on the Container
+
+```bash
 docker exec -it my-project /bin/bash -c "php artisan migrate"
 ```
+
 or open a console in the container
-```
+
+```bash
 docker exec -it my-project /bin/bash
 ```
-**Destroying a Container**
+
+### Destroying a Container
+
 This will leave the project folder it was using so all files will be safe.
-```
+
+```bash
 docker rm my-project -f
 ```
-**Checking the Container Status**
-```
+
+### Checking the Container Status
+
+```bash
 docker ps -a
 ```
+
 This will show the containers you have running and on which port however you can use dockers Kitematic which is a visual interface for this also.
 
 ## MySQL Details
 
-- dbname: docker
-- user:   docker
-- pass:   docker
+* dbname: docker
+* user: docker
+* pass: docker
 
 ## TODO
 
-- ~~Automatic install of laravel~~
+* clean up project

@@ -1,17 +1,55 @@
 #!/bin/bash
+
 startServices() {
-    /etc/init.d/php7.0-fpm restart
-    /etc/init.d/nginx restart
-    /etc/init.d/mysql restart
-    while true; do sleep 1000; done
+  /etc/init.d/php7.2-fpm start \
+  && /etc/init.d/nginx start \
+  && /etc/init.d/mysql start \
+
+  # The sleep method will stop docker from
+  # exiting the shell immediately.
+  #
+  # https://stackoverflow.com/questions/28212380/why-docker-container-exits-immediately
+
+  while true; do sleep 1000; done
 }
-if [ ! -d "/var/www/public" ]; then
-    cp -r /laravel/. /var/www \
- && sed -ie 's/DB_DATABASE=homestead/DB_DATABASE=docker/g' /var/www/.env && \
-    sed -ie 's/DB_USERNAME=homestead/DB_USERNAME=docker/g' /var/www/.env && \
-    sed -ie 's/DB_PASSWORD=secret/DB_PASSWORD=docker/g' /var/www/.env \
- && php /composer.phar update \
- && startServices
-else
+
+moveApplication()
+{
+  cp -r /laravel/. /var/www \
+  && sed -ie 's/DB_DATABASE=homestead/DB_DATABASE=docker/g' /var/www/.env \
+  && sed -ie 's/DB_USERNAME=homestead/DB_USERNAME=docker/g' /var/www/.env \
+  && sed -ie 's/DB_PASSWORD=secret/DB_PASSWORD=docker/g' /var/www/.env \
+  && php /composer.phar update \
+  && cd /var/www/ \
+  && npm install \
+  && startServices
+}
+
+checkStatus()
+{
+  echo "Checking if the application exists."
+
+  if [[ -z "${APPLICATION_EXISTS}" ]];
+  then
+    if [ -d "/var/www/public" ];
+    then
+      exportVariable
+    else
+      echo "Application does not exist, Moving to the /var/www folder now." \
+      && moveApplication \
+      && exportVariable
+    fi
+  else
+    echo "Application exists, Starting Services."
     startServices
-fi
+  fi
+}
+
+exportVariable()
+{
+  APPLICATION_EXISTS=true \
+  && echo 'export APPLICATION_EXISTS=true'  >> ~/.bashrc \
+  && . ~/.bashrc
+}
+
+checkStatus

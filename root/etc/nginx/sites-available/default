@@ -15,7 +15,7 @@ server {
         location = /index.php {
             fastcgi_param SCRIPT_FILENAME /var/www$fastcgi_script_name;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+            fastcgi_pass unix:/var/run/php7.2-fpm.sock;
             try_files $fastcgi_script_name =404;
             set $path_info $fastcgi_path_info;
             fastcgi_param PATH_INFO $path_info;
@@ -42,5 +42,4 @@ server {
         log_not_found off;
         access_log off;
     }
-
 }
